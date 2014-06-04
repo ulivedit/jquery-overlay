@@ -206,10 +206,10 @@
           text = text.replace(match, function (str) {
             return '<span style="' + style + '">' + str.replace(strategy.match, strategy.replace) + '</span>';
           });
-
-          // Fix replace
-          this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
         }
+
+        // Fix replace for the ids to hightlight
+        this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
         this.$el.html(text);
         return this;
       },
