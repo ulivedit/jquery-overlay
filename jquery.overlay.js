@@ -183,34 +183,39 @@
       },
 
       onInput: function (e) {
-        this.renderTextOnOverlay();
+          this.renderTextOnOverlay();
       },
 
       renderTextOnOverlay: function () {
-        var text, i, l, strategy, match, style;
-        text = escape(this.$textarea.val());
+        if (this.ourChange) {
+          this.ourChange = false;
+        } else {
+          var text, i, l, strategy, match, style;
+          text = escape(this.$textarea.val());
 
-        // Apply all strategies
-        for (i = 0, l = this.strategies.length; i < l; i++) {
-          strategy = this.strategies[i];
-          match = strategy.match;
-          if ($.isArray(match)) {
-            match = $.map(match, function (str) {
-              return str.replace(/(\(|\)|\|)/g, '\$1');
+          // Apply all strategies
+          for (i = 0, l = this.strategies.length; i < l; i++) {
+            strategy = this.strategies[i];
+            match = strategy.match;
+            if ($.isArray(match)) {
+              match = $.map(match, function (str) {
+                return str.replace(/(\(|\)|\|)/g, '\$1');
+              });
+              match = new RegExp('(' + match.join('|') + ')', 'g');
+            }
+
+            // Style attribute's string
+            style = 'background-color:' + strategy.css['background-color'];
+            text = text.replace(match, function (str) {
+              return '<span style="' + style + '">' + str.replace(strategy.match, strategy.replace) + '</span>';
             });
-            match = new RegExp('(' + match.join('|') + ')', 'g');
           }
 
-          // Style attribute's string
-          style = 'background-color:' + strategy.css['background-color'];
-          text = text.replace(match, function (str) {
-            return '<span style="' + style + '">' + str.replace(strategy.match, strategy.replace) + '</span>';
-          });
+          // Fix replace for the ids to hightlight
+          this.ourChange = true;
+          this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
+          this.$el.html(text);
         }
-
-        // Fix replace for the ids to hightlight
-        this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
-        this.$el.html(text);
         return this;
       },
 
