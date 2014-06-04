@@ -186,7 +186,7 @@
           this.renderTextOnOverlay();
       },
 
-      replaceNthMatch = function (original, pattern, n, replace) {
+      replaceNthMatch: function (original, pattern, n, replace) {
         var parts, tempParts;
 
         if (pattern.constructor === RegExp) {
@@ -280,7 +280,7 @@
             style = 'background-color:' + strategy.css['background-color'];
             text = text.replace(match, function (str) {
               str = str.replace(strategy.match, strategy.replace);
-              var friendlyStr = str.toLower().replace(" ", "");
+              var friendlyStr = str.toLowerCase().replace(" ", "");
               changesArr.push(str);
               return '<span data-tag="' + friendlyStr + '" class="highlighted tag" style="' + style + '">' + str + '</span>';
             });
