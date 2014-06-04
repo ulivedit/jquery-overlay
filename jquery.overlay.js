@@ -224,7 +224,7 @@
         }
 
         // Parens are unnecessary, but explicit. :)
-        indexOfNthMatch = (n * 2) - 1;
+        var indexOfNthMatch = (n * 2) - 1;
 
         if (parts[indexOfNthMatch] === undefined) {
           // There IS no Nth match
@@ -255,7 +255,7 @@
           for (var i=0; i<tags.length; i++) {
             var $tag = tags[i];
             if ($tag.hasClass("highlighted")) {
-              var $sameTags = tags.find('[data-tag="' + $tag.attr('data-tag') + '"]'));
+              var $sameTags = tags.find('[data-tag="' + $tag.attr('data-tag') + '"]');
               var tagIndex = $sameTags.indexOf($tag);
               tagsToReplace.push({ nth: tagIndex, text: $tag.text() });
             }            
