@@ -203,9 +203,8 @@
 
           // Style attribute's string
           style = 'background-color:' + strategy.css['background-color'];
-
           text = text.replace(match, function (str) {
-            return '<span style="' + style + '">' + str + '</span>';
+            return '<span style="' + style + '">' + str.replace(strategy.match, strategy.replace) + '</span>';
           });
         }
         this.$el.html(text);
