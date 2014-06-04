@@ -288,6 +288,7 @@
             // Add tags for non highlighted as well
             for (var i=0; i<changesArr.length; i++) {
               text = text.replace(changesArr[i], function (str) {
+                var friendlyStr = str.toLowerCase().replace(" ", "");
                 return '<span data-tag="' + friendlyStr + '" class="nonhighlighted tag">' + str + '</span>';
               });
             }
