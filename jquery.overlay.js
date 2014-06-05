@@ -173,10 +173,12 @@
         $.extend(Overlay.prototype, {
 
             val: function (value) {
+                console.log("Calling internal val() function");
                 return value == null ? this.$textarea.origVal() : this.setVal(value);
             },
 
             setVal: function (value) {
+                console.log("Calling internal setVal() function");
                 this.$textarea.origVal(value);
                 this.renderTextOnOverlay();
                 return this.$textarea;
