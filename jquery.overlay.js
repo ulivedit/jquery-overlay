@@ -180,11 +180,12 @@
             setVal: function (value) {
                 console.log("Calling internal setVal() function");
                 this.$textarea.origVal(value);
-                this.renderTextOnOverlay();
+                //this.renderTextOnOverlay();
                 return this.$textarea;
             },
 
             onInput: function (e) {
+                console.log("Calling renderTextOverlay() due to input!");
                 this.renderTextOnOverlay();
             },
 
