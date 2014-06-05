@@ -251,10 +251,7 @@
                 var previousTags = [];
                 var tags = this.$el.find('.tag');
                 for (var i = 0; i < tags.length; i++) {
-                    var $tag = tags[i];
-                    if ($tag.hasClass('tag')) {
-                        previousTags.push($tag);
-                    }
+                    console.log(tags[i]);
                 }
                 console.log(previousTags);
 
