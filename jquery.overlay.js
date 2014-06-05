@@ -251,10 +251,8 @@
                 var tags = this.$el.find('.tag');
                 for (var i = 0; i < tags.length; i++) {
                     var $tag = tags[i];
-                    if ($tag.hasClass("highlighted")) {
-                        var $sameTags = tags.find('[data-tag="' + $tag.attr('data-tag') + '"]');
-                        var tagIndex = $sameTags.indexOf($tag);
-                        previousTags.push({ nth: tagIndex, text: $tag.text() });
+                    if ($tag.hasClass('tag')) {
+                        previousTags.push($tag);
                     }
                 }
                 return previousTags;
@@ -277,8 +275,9 @@
                     var text, i, l, strategy, match, style;
                     text = escape(this.$textarea.val());
 
-                    // Apply all strategies
+                    // Apply all strategies for highlighting
                     for (i = 0, l = this.strategies.length; i < l; i++) {
+
                         strategy = this.strategies[i];
                         match = strategy.match;
                         if ($.isArray(match)) {
@@ -288,33 +287,21 @@
                             match = new RegExp('(' + match.join('|') + ')', 'g');
                         }
 
-                        // Style attribute's      string
-                        var changesArr = [];
+                        // Style the things that we want to highlight
                         style = 'background-color:' + strategy.css['background-color'];
                         text = text.replace(match, function (str) {
                             str = str.replace(strategy.match, strategy.replace);
                             var friendlyStr = str.toLowerCase().replace(" ", "");
-                            changesArr.push(str);
                             return '<span data-tag="' + friendlyStr + '" class="highlighted tag" style="' + style + '">' + str + '</span>';
                         });
 
-                        // Add tags for non highlighted as well
-                        for (var i = 0; i < changesArr.length; i++) {
-                            text = text.replace(changesArr[i], function (str) {
-                                var friendlyStr = str.toLowerCase().replace(" ", "");
-                                return '<span data-tag="' + friendlyStr + '" class="nonhighlighted tag">' + str + '</span>';
-                            });
-                        }
                     }
 
-                    // Apply to the ones previously highlighted but in order
-                    for (var i = 0; i < tagsToReplace.length; i++) {
-                        this.replaceNthMatch(text, tagsToReplace.text, tagsToReplace.nth, '<span data-tag="' + tagsToReplace.text + '" class="highlighted tag" style="' + style + '">' + str + '</span>');
-                    }
-
-                    // Fix replace for the ids to hightlight
+                    // Notify that the change is ours and replace the text where needed...
                     this.ourChange = true;
                     this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
+
+
                     this.$el.html(text);
                 }
                 return this;
