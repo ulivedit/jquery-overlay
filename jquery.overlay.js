@@ -262,8 +262,7 @@
             renderTextOnOverlay: function () {
 
                 // Print overlay info
-                console.log(this.$el.find('.tag'));
-                console.log(this.$el.html());
+                console.log(this.getPreviousTags());
 
                 // Detect if the new change to the text area was because of us
                 if (this.ourChange) {
