@@ -255,47 +255,38 @@
                 }
                 console.log(previousTags);
 
-                // Detect if the new change to the text area was because of us
-                if (this.ourChange) {
+                // Start the process
+                var text, i, l, strategy, match, style;
+                text = escape(this.$textarea.val());
 
-                    // Okay, skip the highlighting this time around
-                    this.ourChange = false;
-                    console.log("Ignore this event just once. We made a local change.");
+                // Apply all strategies for highlighting
+                for (i = 0, l = this.strategies.length; i < l; i++) {
 
-                } else {
-
-                    var text, i, l, strategy, match, style;
-                    text = escape(this.$textarea.val());
-
-                    // Apply all strategies for highlighting
-                    for (i = 0, l = this.strategies.length; i < l; i++) {
-
-                        strategy = this.strategies[i];
-                        match = strategy.match;
-                        if ($.isArray(match)) {
-                            match = $.map(match, function (str) {
-                                return str.replace(/(\(|\)|\|)/g, '\$1');
-                            });
-                            match = new RegExp('(' + match.join('|') + ')', 'g');
-                        }
-
-                        // Style the things that we want to highlight
-                        style = 'background-color:' + strategy.css['background-color'];
-                        text = text.replace(match, function (str) {
-                            str = str.replace(strategy.match, strategy.replace);
-                            var friendlyStr = str.toLowerCase().replace(" ", "");
-                            return '<span data-tag="' + friendlyStr + '" class="highlighted tag" style="' + style + '">' + str + '</span>';
+                    strategy = this.strategies[i];
+                    match = strategy.match;
+                    if ($.isArray(match)) {
+                        match = $.map(match, function (str) {
+                            return str.replace(/(\(|\)|\|)/g, '\$1');
                         });
-
+                        match = new RegExp('(' + match.join('|') + ')', 'g');
                     }
 
-                    // Notify that the change is ours and replace the text where needed...
-                    this.ourChange = true;
-                    this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
+                    // Style the things that we want to highlight
+                    style = 'background-color:' + strategy.css['background-color'];
+                    text = text.replace(match, function (str) {
+                        str = str.replace(strategy.match, strategy.replace);
+                        var friendlyStr = str.toLowerCase().replace(" ", "");
+                        return '<span data-tag="' + friendlyStr + '" class="highlighted tag" style="' + style + '">' + str + '</span>';
+                    });
 
-                    // Set the highlighted area to our new text we created
-                    this.$el.html(text);
                 }
+
+                // Notify that the change is ours and replace the text where needed...
+                this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
+
+                // Set the highlighted area to our new text we created
+                this.$el.html(text);
+
                 return this;
             },
 
