@@ -249,6 +249,7 @@
                 // Grab the previous tags from the highlighted area
                 var previousTags = [];
                 var tags = this.$el.find('.tag');
+                console.log(tags);
                 for (var i = 0; i < tags.length; i++) {
                     var $tag = tags[i];
                     if ($tag.hasClass('tag')) {
@@ -301,7 +302,7 @@
                     this.ourChange = true;
                     this.$textarea.val(this.$textarea.val().replace(strategy.match, strategy.replace));
 
-
+                    // Set the highlighted area to our new text we created
                     this.$el.html(text);
                 }
                 return this;
