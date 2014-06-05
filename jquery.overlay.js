@@ -261,13 +261,16 @@
 
             renderTextOnOverlay: function () {
 
+                // Print overlay info
+                console.log(this.$el.find('.tag'));
+                console.log(this.$el.html());
+
                 // Detect if the new change to the text area was because of us
                 if (this.ourChange) {
 
                     // Okay, skip the highlighting this time around
                     this.ourChange = false;
                     console.log("Ignore this event just once. We made a local change.");
-                    console.log(this.$el.find('.tag'));
 
                 } else {
 
