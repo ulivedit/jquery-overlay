@@ -244,8 +244,9 @@
 
             },
 
-            getPreviousTags: function() {
+            renderTextOnOverlay: function () {
 
+                // Print overlay info
                 // Grab the previous tags from the highlighted area
                 var previousTags = [];
                 var tags = this.$el.find('.tag');
@@ -255,14 +256,7 @@
                         previousTags.push($tag);
                     }
                 }
-                return previousTags;
-
-            },
-
-            renderTextOnOverlay: function () {
-
-                // Print overlay info
-                console.log(this.getPreviousTags());
+                console.log(previousTags);
 
                 // Detect if the new change to the text area was because of us
                 if (this.ourChange) {
