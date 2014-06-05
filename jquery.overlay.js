@@ -275,7 +275,7 @@
               match = new RegExp('(' + match.join('|') + ')', 'g');
             }
 
-            // Style attribute's string
+            // Style attribute's      string
             var changesArr = [];
             style = 'background-color:' + strategy.css['background-color'];
             text = text.replace(match, function (str) {
