@@ -249,7 +249,6 @@
                 // Grab the previous tags from the highlighted area
                 var previousTags = [];
                 var tags = this.$el.find('.tag');
-                console.log(tags);
                 for (var i = 0; i < tags.length; i++) {
                     var $tag = tags[i];
                     if ($tag.hasClass('tag')) {
@@ -262,6 +261,9 @@
 
             renderTextOnOverlay: function () {
 
+                console.log("Previous Tags:");
+                console.log(this.getPreviousTags());
+
                 // Detect if the new change to the text area was because of us
                 if (this.ourChange) {
 
@@ -269,10 +271,7 @@
                     this.ourChange = false;
 
                 } else {
-
-                    console.log("Previous Tags:");
-                    console.log(this.getPreviousTags());
-
+                    
                     var text, i, l, strategy, match, style;
                     text = escape(this.$textarea.val());
 
