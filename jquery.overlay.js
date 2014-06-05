@@ -257,6 +257,7 @@
                         previousTags.push({ nth: tagIndex, text: $tag.text() });
                     }
                 }
+                return previousTags;
 
             },
 
