@@ -277,7 +277,7 @@
                     // Style the things that we want to highlight
                     style = 'background-color:' + strategy.css['background-color'];
                     text = text.replace(match, function (str) {
-                        //str = str.replace(strategy.match, strategy.replace);
+                        str = str.replace(strategy.match, strategy.replace);
                         var friendlyStr = str.toLowerCase().replace(" ", "");
                         return '<span data-tag="' + friendlyStr + '" class="highlighted tag" style="' + style + '">' + str + '</span>';
                     });
@@ -286,7 +286,6 @@
 
                 // Set the highlighted area to our new text we created
                 this.$el.html(text);
-
                 return this;
             },
 
