@@ -267,6 +267,7 @@
                     // Okay, skip the highlighting this time around
                     this.ourChange = false;
                     console.log("Ignore this event just once. We made a local change.");
+                    console.log(this.$el.find('.tag'));
 
                 } else {
 
